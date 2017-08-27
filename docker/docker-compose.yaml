@@ -1,0 +1,9 @@
+version: '2.1'
+
+services:
+  mailcatcher:
+      container_name: my-mailcatcher
+      build: mailcatcher
+      ports:
+          - "1025:1025"
+          - "1080:1080"

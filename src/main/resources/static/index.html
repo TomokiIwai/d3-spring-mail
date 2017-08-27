@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>トップページ</title>
+</head>
+<body>
+
+<input type="button" value="メール送信" id="send">
+
+<a href="http://localhost:1080/" target="_blank">メール管理画面を開く</a>
+
+<script>
+  /**
+   * メール送信を行います。
+   *
+   * @returns {Promise}
+   */
+  function doSend() {
+    return new Promise(function (resolve, reject) {
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('POST', '/sendMail');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        alert(xhr.responseText);
+
+        if (xhr.status === 200) {
+          resolve();
+        } else {
+          reject();
+        }
+      };
+      xhr.send();
+    });
+  }
+
+  var $doSend = document.getElementById('send');
+
+  /**
+   * メール送信ボタンがクリックされた際に呼び出されます。
+   */
+  $doSend.addEventListener('click', function () {
+    doSend().then(function () {
+      alert('送信完了');
+    }).catch(function () {
+      alert('送信失敗');
+    });
+  });
+</script>
+</body>
+</html>
